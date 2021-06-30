@@ -1,0 +1,155 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Starup243 API V1",
+    "description": "This is a private  api",
+    "contact": {}
+  },
+  "host": "localhost:5650",
+  "basePath": "/api/v1",
+  "securityDefinitions": {},
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "description": "Login An existing User",
+        "summary": "Login a User",
+        "tags": [
+          "All Endpoints"
+        ],
+        "operationId": "login-users",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "app",
+            "in": "header",
+            "required": true,
+            "default": "Front",
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "in": "header",
+            "required": true,
+            "default": "WKRHJGDJAHFhkjhead676a75f65a6d5f78z5f78ajaf7s6786FUGJBF",
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+
+    "/user/register": {
+      "post": {
+        "description": "Add A new User with all required informations",
+        "summary": "Register an new user",
+        "tags": [
+          "All Endpoints"
+        ],
+        "operationId": "add-users",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "app",
+            "in": "header",
+            "required": true,
+            "default": "Front",
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "in": "header",
+            "required": true,
+            "default": "WKRHJGDJAHFhkjhead676a75f65a6d5f78z5f78ajaf7s6786FUGJBF",
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "photo",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "tags": [{
+    "name": "All Endpoints",
+    "description": "all endpoints return objects in JSON format"
+  }]
+}
