@@ -25,6 +25,8 @@ app.get('/', (req, res, next) => {
         status : 200,
         message : 'Welcome to M AUTO API'});
 });
+
+
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,13 +43,14 @@ const testDbConnexion = async() =>{
       await database.authenticate();
       console.log('Database Successfully Connected');
     } catch (error) {
-       console.error('Error ff',error);
+       console.error('DB Error ',error);
     }
   };
 
   testDbConnexion();
 
-let port = process.env.PORT || 5650;
+let port = process.env.PORT || 8080;
+
 app.listen(port,()=>{
     console.log(`server run on port::${port}`);
 });
