@@ -49,7 +49,7 @@ const testDbConnexion = async() =>{
 
   testDbConnexion();
 
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 3700;
 
 app.listen(port,()=>{
     console.log(`server run on port::${port}`);
