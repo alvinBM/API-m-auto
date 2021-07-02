@@ -1,12 +1,12 @@
 import Panier from "../models/panier.model";
 import Commande from "../models/commande.model";
 import produits from "../models/produits";
-import { include } from "underscore";
 
 const panierController = {
   findOne: async (req, res) => {
-    Panier.hasMany(Commande, { foreignKey: "id" });
-    let panier = await Panier.findAll({
+    Commande.hasMany(Panier, { foreignKey: "id" });
+    Panier.belongsTo(Commande, {foreignKey:"commande_id"})
+    let panier = await Panier.findOne({
       where: {
         id: req.params.panierId,
       },

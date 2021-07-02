@@ -5,7 +5,8 @@ const Commande = db.define('commandes',{
     id: {
         type: Sequelize.BIGINT,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     created: {
         type: Sequelize.DATE,

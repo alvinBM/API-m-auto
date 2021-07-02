@@ -5,7 +5,8 @@ const Panier = db.define('paniers',{
     id: {
         type: Sequelize.BIGINT,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     created: {
         type: Sequelize.DATE,
@@ -29,7 +30,7 @@ const Panier = db.define('paniers',{
     },
     commande_id:{
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 }, {
     timestamps: false,
