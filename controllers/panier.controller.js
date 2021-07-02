@@ -21,7 +21,7 @@ const panierController = {
       .then((data) => {
         res.status(200).json({
           status: "200",
-          panier: data,
+          panier: data
         });
       })
       .catch((error) => console.log(error));
@@ -47,6 +47,36 @@ const panierController = {
       })
       .catch((err) => console.log(err));
   },
+  edit: async (req, res) => {
+
+    Panier.Commande = Panier.hasMany(Commande);
+    Commande.produits = Commande.hasMany(produits);
+
+    Commande.hasMany(Panier, { foreignKey: "id" });
+    Panier.belongsTo(Commande, { foreignKey: "commande_id" });
+
+    await Panier.findOne({
+      where: {
+        id: req.params.panierId,
+      },
+      include: [
+        {
+          model: Commande,
+          required: true,
+        },
+      ],
+    })
+    .then(res => {
+      if(res){
+        console.log(res);
+      }
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({status: 500, message: error})
+    })
+  }
 };
 
 export default panierController;

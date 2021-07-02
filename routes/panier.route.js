@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post('/', panier.create)// Creation d'un panier
       .get('/:panierId', panier.findOne) // Details d'un panier
-      .put('/:panierId', panier.edit)
+      .put('/:panierId', panier.edit) // edit panier
     
-
 export default router;
