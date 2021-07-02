@@ -6,7 +6,6 @@ import { include } from "underscore";
 const panierController = {
   findOne: async (req, res) => {
     Panier.hasMany(Commande, { foreignKey: "id" });
-    //Panier.belongsTo(Commande, { foreignKey: "commande_id" });
     let panier = await Panier.findAll({
       where: {
         id: req.params.panierId,
