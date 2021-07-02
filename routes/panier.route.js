@@ -3,7 +3,7 @@ import panier from '../controllers/panier.controller';
 
 const router = express.Router();
 
-router.get('/panierId', panier.findOne);
+router.get('/:panierId', panier.findOne);
     
 
 export default router;

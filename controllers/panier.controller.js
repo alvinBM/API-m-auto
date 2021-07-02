@@ -2,7 +2,6 @@ import Panier from "../models/panier.model";
 
 const panierController = {
     findOne: async(req, res) => {
-        console.log(req.params.panierId);
         let panier = await Panier.findAll({
             where:{
                 id: req.params.panierId
