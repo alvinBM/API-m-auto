@@ -38,19 +38,16 @@ const panierController = {
         }
       ]
     )
-      .then((data) => {
-        res.status(200).json({
-          status: "200",
-          Panier: data,
-          message: "Panier enregistrer",
-        });
-      })
-      .catch((err) => console.log(err));
+    .then((data) => {
+      res.status(200).json({
+        status: "200",
+        Panier: data,
+        message: "Panier enregistré",
+      });
+    })
+    .catch((err) => console.log(err));
   },
-  edit: async (req, res) => {
-
-    Panier.Commande = Panier.hasMany(Commande);
-    Commande.produits = Commande.hasMany(produits);
+  onEdit: async (req, res) => {
 
     Commande.hasMany(Panier, { foreignKey: "id" });
     Panier.belongsTo(Commande, { foreignKey: "commande_id" });
@@ -58,23 +55,35 @@ const panierController = {
     await Panier.findOne({
       where: {
         id: req.params.panierId,
+        client_id: req.body.client_id, // facultatif vu que l'Id pour chaque panier est unique
+        commande_id: req.body.commande_id // facultatif vu que l'Id pour chaque panier est unique
       },
       include: [
         {
           model: Commande,
           required: true,
+          as: 'commande'
         },
       ],
     })
-    .then(res => {
-      if(res){
-        console.log(res);
+    .then(npanier => {
+      if(npanier && npanier instanceof Panier){
+        npanier.commande.quantite = req.body.quantite ? req.body.quantite : 0
+        npanier.save()
+        res
+        .status(404)
+        .json({status: 200, message: "Pannier modifier avec succès !" })
+
+      } else {
+      res
+        .status(404)
+        .json({status: 404, message: "aucun resultat trouvé pour la modification !" })
       }
     })
     .catch(error => {
       res
         .status(500)
-        .json({status: 500, message: error})
+        .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
     })
   }
 };

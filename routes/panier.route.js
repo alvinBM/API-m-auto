@@ -3,8 +3,8 @@ import panier from '../controllers/panier.controller';
 
 const router = express.Router();
 
-router.post('/', panier.create)// Creation d'un panier
+router.post('/', panier.create) // Creation d'un panier
       .get('/:panierId', panier.findOne) // Details d'un panier
-      .put('/:panierId', panier.edit) // edit panier
+      .put('/:panierId', panier.onEdit) // Edit panier
     
 export default router;
