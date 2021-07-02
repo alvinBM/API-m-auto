@@ -3,8 +3,9 @@ import db from '../config/database';
 
 const Commande = db.define('commandes',{
     id: {
-        type: sequelize.BIGINT,
-        allowNull: false
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        primaryKey: true
     },
     created: {
         type: Sequelize.DATE,
