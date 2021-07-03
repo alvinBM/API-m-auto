@@ -124,6 +124,46 @@ const panierController = {
         .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
     })
   }
+  ,
+  onSuccessDelivery: async (req, res) => {
+
+    Commande.hasMany(Panier, { foreignKey: "id" });
+    Panier.belongsTo(Commande, { foreignKey: "commande_id" });
+
+    await Panier.findOne({
+      where: {
+        id: req.params.panierId,
+        client_id: req.body.client_id, 
+        commande_id: req.body.commande_id 
+      },
+      include: [
+        {
+          model: Commande,
+          required: true,
+          as: 'commande'
+        },
+      ],
+    })
+    .then(npanier => {
+      if(npanier && npanier instanceof Panier){
+        npanier.status = 2;  // signifie que la commande est validée
+        // npanier.commande.
+        npanier.save()
+        res
+        .status(200)
+        .json({status: 200, message: "Pannier supprimé avec succès !" })
+      } else {
+      res
+        .status(404)
+        .json({status: 404, message: "aucun resultat trouvé pour la modification !" })
+      }
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
+    })
+  }
 };
 
 export default panierController;

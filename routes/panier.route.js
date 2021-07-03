@@ -7,5 +7,6 @@ router.post('/', panier.create) // Creation d'un panier
       .get('/:panierId', panier.findOne) // Details d'un panier
       .put('/:panierId', panier.onEdit) // Edit panier
       .delete('/:panierId', panier.onDelete)
+      .put('/delivery/:panierId', panier.onSuccessDelivery) // la commande a ete validée le status devient ==== 2 
     
 export default router;
