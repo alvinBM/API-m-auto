@@ -35,7 +35,11 @@ const Commande = db.define('commandes',{
     quantite:{
         type: Sequelize.INTEGER,
         allowNull: false
-    }
+    },
+    panier_id:{
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
 }, {
     timestamps: false,
     freezeTableName: true
