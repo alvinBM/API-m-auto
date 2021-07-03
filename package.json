@@ -2,7 +2,7 @@
   "name": "mautoAPI",
   "version": "1.0.0",
   "description": "mautoAPI",
-  "main": "index.js",
+  "main": "index",
   "scripts": {
     "start": "babel-node index.js",
     "start-dev": "nodemon index.js --exec babel-node",
