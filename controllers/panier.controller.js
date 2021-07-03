@@ -70,6 +70,7 @@ const panierController = {
       if(npanier && npanier instanceof Panier){
         npanier.commande.quantite = req.body.quantite ? req.body.quantite : 0
         npanier.save()
+        
         res
         .status(200)
         .json({status: 200, message: "Pannier modifier avec succès !" })
