@@ -23,32 +23,7 @@ const productController = {
 
     },
 
-
     rechercherProduits : async (req, res) => {
-
-        let query = req.body.query;
-
-        if(query){
-            let results = await produits.findAll({
-                where: {
-                    status: 1,
-                    nom : req.body.query
-                }
-            }).then((data) => {
-                res.status(200).json({
-                    status : "200",
-                    "produits" : data
-                })
-            }).catch(er => console.error(er));
-        }else{
-            res.status(401).json({
-                status : "401",
-                "desciption" : "Vous devez renseigner le mot clé de la recherche"
-            })
-        }
-    },
-
-    rechercherProduits2 : async (req, res) => {
 
         let query = req.body.query;
 
@@ -56,7 +31,7 @@ const productController = {
             produits.findAll({
                 where: {
                     status: 1,
-                    nom : {[Op.like]: `%${req.body.query}%`}
+                    nom : {[Op.like]: `%${query}%`}
                 }
             }).then((data) => {
                 res.status(200).json({
