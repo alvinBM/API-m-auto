@@ -4,7 +4,8 @@ import productController from '../controllers/productController';
 const router = express.Router();
 
 router.get('/',productController.listerProduits)
-        .post('/recherche', productController.rechercherProduits)
+        .get('/recherche', productController.rechercherProduits2)
+        .delete('/:productId', productController.supprimerProduits)
     
 
 export default router;
