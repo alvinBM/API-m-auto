@@ -24,7 +24,13 @@ const panierController = {
           panier: data
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error)
+        res.status(404).json({
+          status: "404",
+          description: "Une erreur est survenu" + error
+        });
+      });
   },
   create: async (req, res) => {
     Panier.Commande = Panier.hasMany(Commande);
@@ -45,7 +51,13 @@ const panierController = {
         message: "Panier enregistré",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+        res.status(404).json({
+          status: "404",
+          description: "Une erreur est survenu" + err
+        });
+    });
   },
   onEdit: async (req, res) => {
 
