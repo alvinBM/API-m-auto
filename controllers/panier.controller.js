@@ -86,7 +86,6 @@ const panierController = {
     })
   },
   onDelete: async (req, res) => {
-
     Commande.hasMany(Panier, { foreignKey: "id" });
     Panier.belongsTo(Commande, { foreignKey: "commande_id" });
 
@@ -107,6 +106,7 @@ const panierController = {
     .then(npanier => {
       if(npanier && npanier instanceof Panier){
         npanier.status = 0;
+        console.log(npanier.toJSON())
         // npanier.commande.
         npanier.save()
         res
@@ -147,15 +147,16 @@ const panierController = {
     .then(npanier => {
       if(npanier && npanier instanceof Panier){
         npanier.status = 2;  // signifie que la commande est validée
-        // npanier.commande.
-        npanier.save()
+        // let pan = Panier.build(npanier.toJSON());
+        console.log(npanier.toJSON())
+        npanier.save();
         res
-        .status(200)
-        .json({status: 200, message: "Pannier supprimé avec succès !" })
+          .status(200)
+          .json({status: 200, message: "livraison effectuée avec succès succès !" })
       } else {
       res
         .status(404)
-        .json({status: 404, message: "aucun resultat trouvé pour la modification !" })
+        .json({status: 404, message: "aucun resultat trouvé pour la suppression !" })
       }
     })
     .catch(error => {
