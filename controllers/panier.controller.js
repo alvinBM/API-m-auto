@@ -55,8 +55,8 @@ const panierController = {
     await Panier.findOne({
       where: {
         id: req.params.panierId,
-        client_id: req.body.client_id, // facultatif vu que l'Id pour chaque panier est unique
-        commande_id: req.body.commande_id // facultatif vu que l'Id pour chaque panier est unique
+        client_id: req.body.client_id, 
+        commande_id: req.body.commande_id 
       },
       include: [
         {
@@ -69,11 +69,16 @@ const panierController = {
     .then(npanier => {
       if(npanier && npanier instanceof Panier){
         npanier.commande.quantite = req.body.quantite ? req.body.quantite : 0
-        npanier.save()
-        res
-        .status(404)
-        .json({status: 200, message: "Pannier modifier avec succès !" })
-
+        npanier.save(err => {
+          if(err) 
+            res
+            .status(404)
+            .json({status: 200, message: "Pannier modifier avec succès !" })
+          else        
+            res
+            .status(404)
+            .json({status: 200, message: "Pannier modifier avec succès !" })
+        })
       } else {
       res
         .status(404)
