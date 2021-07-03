@@ -68,12 +68,50 @@ const panierController = {
     })
     .then(npanier => {
       if(npanier && npanier instanceof Panier){
-        npanier.commande.quantite = req.body.quantite ? req.body.quantite : 0
+        npanier = req.body
         npanier.save()
-        
         res
         .status(200)
         .json({status: 200, message: "Pannier modifier avec succès !" })
+      } else {
+      res
+        .status(404)
+        .json({status: 404, message: "aucun resultat trouvé pour la modification !" })
+      }
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
+    })
+  },
+  onDelete: async (req, res) => {
+
+    Commande.hasMany(Panier, { foreignKey: "id" });
+    Panier.belongsTo(Commande, { foreignKey: "commande_id" });
+
+    await Panier.findOne({
+      where: {
+        id: req.params.panierId,
+        client_id: req.body.client_id, 
+        commande_id: req.body.commande_id 
+      },
+      include: [
+        {
+          model: Commande,
+          required: true,
+          as: 'commande'
+        },
+      ],
+    })
+    .then(npanier => {
+      if(npanier && npanier instanceof Panier){
+        npanier.status = 0;
+        // npanier.commande.
+        npanier.save()
+        res
+        .status(200)
+        .json({status: 200, message: "Pannier supprimé avec succès !" })
       } else {
       res
         .status(404)
