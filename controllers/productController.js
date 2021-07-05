@@ -49,7 +49,7 @@ const productController = {
 
         
 
-    }
+    },
 
     detailsProduit: async (req, res) => {
 
