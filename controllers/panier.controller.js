@@ -123,8 +123,7 @@ const panierController = {
         .status(500)
         .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
     })
-  }
-  ,
+  },
   onSuccessDelivery: async (req, res) => {
 
     Commande.hasMany(Panier, { foreignKey: "id" });
