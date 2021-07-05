@@ -4,7 +4,7 @@ import productController from '../controllers/productController';
 const router = express.Router();
 
 router.get('/', productController.listerProduits)
-        .get("/:id", productController.detailsProduit)
+        .get("/detail/:id", productController.detailsProduit)
         .get("/category/:category_id", productController.produitParCategorie)
         .post("/product", productController.ajouterProduit)
         .post('/recherche', productController.rechercherProduits)
