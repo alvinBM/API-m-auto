@@ -3,13 +3,13 @@ import produits from '../models/produits';
 import dotenv from 'dotenv';
 import base64ToImage from 'base64-to-image';
 import path from "path";
+import {Op} from 'sequelize';
 
 dotenv.config();
 
 const productController = {
 
     listerProduits : async (req, res) => {
-
         let results = await produits.findAll({
             where: {
                 status: 1
@@ -23,16 +23,15 @@ const productController = {
 
     },
 
-
     rechercherProduits : async (req, res) => {
 
         let query = req.body.query;
 
         if(query){
-            let results = await produits.findAll({
+            produits.findAll({
                 where: {
                     status: 1,
-                    nom : req.body.query
+                    nom : {[Op.like]: `%${query}%`}
                 }
             }).then((data) => {
                 res.status(200).json({
@@ -46,8 +45,15 @@ const productController = {
                 "desciption" : "Vous devez renseigner le mot clé de la recherche"
             })
         }
+    },
 
-        
+    supprimerProduits : async (req, res) => {
+        const {productId} = req.params;
+
+        const product = await produits.findOne({
+            where: {id: productId}
+        });
+
 
     },
 
@@ -104,7 +110,23 @@ const productController = {
                 "produits": data
             })
         }).catch(er => console.error(er));
+
+        if(product){
+            product.update({deleted: new Date(), status: 0})
+            res.status(200).json({
+                status : "200",
+                "desciption" : "Produit supprime avec succes"
+            }) 
+
+        } else {
+            res.status(404).json({
+                status : "404",
+                "desciption" : "Vous devez renseigner le mot clé de la suppression"
+            }) 
+        }
+
     }
+
 
 
 }

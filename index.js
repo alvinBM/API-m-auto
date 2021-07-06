@@ -8,6 +8,7 @@ import cors from 'cors';
 import docs from './swagger.json';
 import path from "path";
 
+
 dotenv.config();
 
 const app = express();
@@ -49,7 +50,7 @@ const testDbConnexion = async() =>{
 
   testDbConnexion();
 
-let port = process.env.PORT || 3700;
+let port = process.env.PORT || 3000;
 
 app.listen(port,()=>{
     console.log(`server run on port::${port}`);

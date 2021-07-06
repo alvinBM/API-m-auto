@@ -8,6 +8,7 @@ router.get('/', productController.listerProduits)
         .get("/category/:category_id", productController.produitParCategorie)
         .post("/product", productController.ajouterProduit)
         .post('/recherche', productController.rechercherProduits)
+        .delete('/:productId', productController.supprimerProduits)
 
 
 export default router;
