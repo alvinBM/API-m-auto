@@ -3,7 +3,9 @@ import Client from '../models/client.model'
 const clientController = {
     onListing: async (req, res) => {
         await Client.findAll({
-
+            where: {
+                status: 1
+            }
         })
         .then(clients => {
             if(clients)
@@ -31,11 +33,11 @@ const clientController = {
         })
         .then(client => {
             if(client && client instanceof Client){
-                client.email = body.email;
-                client.nom = body.nom;
-                client.prenom = body.prenom,
-                client.telephone = body.telephone;
-                client.adresse = client.adresse;
+                client.email = body.email ? body.email : client.email;
+                client.nom = body.nom ? body.nom : client.nom;
+                client.prenom = body.prenom ? body.prenom : client.prenom;
+                client.telephone = body.telephone ? body.telephone : client.telephone;
+                client.adresse = body.adresse ? body.adresse : client.adresse;
                 client.save()
                 res
                   .status(200)
@@ -43,7 +45,7 @@ const clientController = {
             }else 
                 res
                   .status(404)
-                  .json({status: 404, message: `Aucun client avec un id ${req.body.clientId}`})
+                  .json({status: 404, message: `Aucun client avec un id ${req.body.clientId} pour la modification !`})
         })
         .catch(error => {
             console.log(error)
