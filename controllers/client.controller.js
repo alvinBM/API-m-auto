@@ -15,7 +15,7 @@ const clientController = {
             else 
                 res
                   .status(404)
-                  .json({status: 404, message: "aucune information trouvée"})
+                  .json({status: 404, message: "aucune information trouvée"})                                                                                                                         
         })
         .catch(error => {
             if(error)
