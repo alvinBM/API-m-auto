@@ -28,7 +28,8 @@ const Panier = db.define('paniers',{
     },
     status: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 1
     },
     client_id:{
         type: Sequelize.INTEGER,
