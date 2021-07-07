@@ -17,8 +17,6 @@ const userController = {
             }
         }).then().catch(er => console.error(er));
 
-        console.log("result ", result)
-
         if (result) {
             let is_logged = await bcrypt.compare(req.body.password, result.password);
             if (is_logged) {

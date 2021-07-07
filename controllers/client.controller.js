@@ -1,4 +1,5 @@
 import Client from '../models/client.model'
+
 const clientController = {
     onListing: async (req, res) => {
         await Client.findAll({
@@ -22,7 +23,34 @@ const clientController = {
         })
     },
     onEditing: async (req, res) => {
-
+        const body = req.body;
+        await Client.findOne({
+            where: {
+                id: req.params.clientId ? req.params.clientId : 0
+            }
+        })
+        .then(client => {
+            if(client && client instanceof Client){
+                client.email = body.email;
+                client.nom = body.nom;
+                client.prenom = body.prenom,
+                client.telephone = body.telephone;
+                client.adresse = client.adresse;
+                client.save()
+                res
+                  .status(200)
+                  .json({status: 200, message: "client modifier avec succès !"})
+            }else 
+                res
+                  .status(404)
+                  .json({status: 404, message: `Aucun client avec un id ${req.body.clientId}`})
+        })
+        .catch(error => {
+            console.log(error)
+            res
+              .status(500)
+              .json({status: 500, message: error})
+        })
     }
 }
 export default clientController;

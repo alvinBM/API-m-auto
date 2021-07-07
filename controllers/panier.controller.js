@@ -15,8 +15,8 @@ const panierController = {
         {
           model: Commande,
           required: true,
-        },
-      ],
+        }
+      ]
     })
       .then((data) => {
         res.status(200).json({

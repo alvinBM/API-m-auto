@@ -5,6 +5,6 @@ const router = express.Router();
 
 router
     .get('/', clients.onListing)
-    .put('/', clients.onEditing)
+    .put('/:clientId', clients.onEditing)
     
 export default router;
