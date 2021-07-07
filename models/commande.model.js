@@ -10,19 +10,15 @@ const Commande = db.define('commandes',{
     },
     created: {
         type: Sequelize.DATE,
-        allowNull: false
     },
     modified: {
         type: Sequelize.DATE,
-        allowNull: false
     },
     deleted: {
         type: Sequelize.DATE,
-        allowNull: true
     },
     status: {
         type: Sequelize.INTEGER,
-        allowNull: false
     },
     client_id:{
         type: Sequelize.INTEGER,
