@@ -1,13 +1,12 @@
 import Panier from "../models/panier.model";
 import Commande from "../models/commande.model";
 import produits from "../models/produits";
-import { include } from "underscore";
 
 const panierController = {
   findOne: async (req, res) => {
-    Commande.hasMany(Panier, { foreignKey: "id" });
-    Panier.belongsTo(Commande, { foreignKey: "commande_id" });
-    let panier = await Panier.findAll({
+    Panier.hasMany(Commande, { foreignKey: "panier_id" });
+    Commande.belongsTo(Panier, {foreignKey:"id"})
+    let panier = await Panier.findOne({
       where: {
         id: req.params.panierId,
       },
@@ -24,19 +23,23 @@ const panierController = {
           panier: data
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error)
+        res.status(404).json({
+          status: "404",
+          description: "Une erreur est survenu" + error
+        });
+      });
   },
   create: async (req, res) => {
-    Panier.Commande = Panier.hasMany(Commande);
-    Commande.produits = Commande.hasMany(produits);
+    Panier.commande = Panier.hasMany(Commande, { foreignKey: "panier_id" });
+    Commande.Panier = Commande.belongsTo(Panier, {foreignKey:"id"});
+    
     await Panier.create(
       req.body,
-      include[
-        {
-          association: Panier.Commande,
-          include: [Commande.produits],
-        }
-      ]
+      {
+        include: Commande
+      }
     )
     .then((data) => {
       res.status(200).json({
@@ -45,7 +48,13 @@ const panierController = {
         message: "Panier enregistré",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+        res.status(404).json({
+          status: "404",
+          description: "Une erreur est survenu" + err
+        });
+    });
   },
   onEdit: async (req, res) => {
 
