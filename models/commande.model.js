@@ -10,15 +10,21 @@ const Commande = db.define('commandes',{
     },
     created: {
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+        allowNull: false,
+        field: created
     },
     modified: {
         type: Sequelize.DATE,
-        allowNull: false
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP'),
+        allowNull: false,
+        field: modified
     },
     deleted: {
         type: Sequelize.DATE,
-        allowNull: true
+        allowNull: true,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP'),
+        field: deleted
     },
     status: {
         type: Sequelize.INTEGER,
