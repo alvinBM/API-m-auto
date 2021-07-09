@@ -8,8 +8,7 @@ import client from './client.route';
 const router = express.Router();
 
 
-router
-      .use('/user',validationKey, user)
+router.use('/user',validationKey, user)
       .use('/products', produits)
       .use('/paniers', panier)
       .use('/clients', client)

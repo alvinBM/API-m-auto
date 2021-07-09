@@ -14,8 +14,8 @@ const panierController = {
         {
           model: Commande,
           required: true,
-        },
-      ],
+        }
+      ]
     })
       .then((data) => {
         res.status(200).json({
@@ -65,7 +65,8 @@ const panierController = {
       where: {
         id: req.params.panierId,
         client_id: req.body.client_id, 
-        commande_id: req.body.commande_id 
+        commande_id: req.body.commande_id,
+        status: 1
       },
       include: [
         {
@@ -76,8 +77,13 @@ const panierController = {
       ],
     })
     .then(npanier => {
+      const body = req.body;
       if(npanier && npanier instanceof Panier){
-        npanier = req.body
+
+        npanier.commande.client_id = body.client_id ? body.client_id : npanier.commande.client_id;
+        npanier.commande.quantite = body.quantite ? body.quantite : npanier.commande.quantite;
+        console.log(npanier.toJSON())
+        
         npanier.save()
         res
         .status(200)
@@ -132,8 +138,7 @@ const panierController = {
         .status(500)
         .json({status: 500, message: error.hasOwnProperty('sqlMessage')  ? error['sqlMessage'] : "erreur inconnue du serveur !" })
     })
-  }
-  ,
+  },
   onSuccessDelivery: async (req, res) => {
 
     Commande.hasMany(Panier, { foreignKey: "id" });
