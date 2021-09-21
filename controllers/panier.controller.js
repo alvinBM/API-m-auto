@@ -180,5 +180,4 @@ const panierController = {
     })
   }
 };
-
 export default panierController;
