@@ -20,10 +20,6 @@ const Commande = db.define('commandes',{
     status: {
         type: Sequelize.INTEGER,
     },
-    client_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     product_id:{
         type: Sequelize.INTEGER,
         allowNull: false
