@@ -43,7 +43,8 @@ const productController = {
         } else {
             res.status(401).json({
                 status: "401",
-                "desciption": "Vous devez renseigner le mot clé de la recherche"
+                "message": "Vous devez renseigner le mot clé de la recherche",
+                data: null
             })
         }
     },
@@ -52,8 +53,21 @@ const productController = {
         const {productId} = req.params;
 
         const product = await produits.findOne({
-            where: {id: productId}
-        });
+            where: {
+                id: productId,
+                status: 1
+            }
+        })
+        .then(prd => {
+            if(prd instanceof produits){
+
+            }else{
+                res.status(404).json({status: 404, message: "ce produit n'existe pas dans la base pour la suppression !", data: null})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({status: 500, message: "une erreur serveur vient de se produire !", data: err})
+        })
     },
 
     detailsProduit: async (req, res) => {
