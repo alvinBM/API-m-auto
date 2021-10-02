@@ -1,5 +1,5 @@
 import formatDate from 'date-format';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import user from '../models/user';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
