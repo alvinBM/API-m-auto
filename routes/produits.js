@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/', productController.listerProduits)
 
-    .get("/detail/:id", productController.detailsProduit)
+    .get("/:productId", productController.detailsProduit)
     .get("/category/:category_id", productController.produitParCategorie)
-    .post("/product", productController.ajouterProduit)
-    .post('/recherche', productController.rechercherProduits)
+    .post("/", productController.ajouterProduit)
+    .get('?', productController.rechercherProduits)
     .delete('/:productId', productController.supprimerProduits)
-    .put("/product", productController.modifierProduits)
+    .put("/:productId", productController.modifierProduits)
 
 
 export default router;

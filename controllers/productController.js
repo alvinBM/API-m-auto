@@ -26,7 +26,7 @@ const productController = {
 
     rechercherProduits : async (req, res) => {
 
-        let query = req.body.query;
+        let query = req.query.keyword;
 
         if(query){
             produits.findAll({
@@ -52,7 +52,7 @@ const productController = {
     supprimerProduits : async (req, res) => {
         const {productId} = req.params;
 
-        const product = await produits.findOne({
+        const product = await produits.deleted({
             where: {id: productId}
         });
 
@@ -61,7 +61,7 @@ const productController = {
 
     detailsProduit: async (req, res) => {
 
-        let results = await produits.findAll(
+        let results = await produits.findOne(
             {
                 where: {
                     id: req.params.id
