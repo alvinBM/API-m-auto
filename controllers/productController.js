@@ -10,6 +10,7 @@ import database from '../config/database';
 dotenv.config();
 
 const productController = {
+
     listerProduits : async (req, res) => {
         await produits.findAll({
             where: {
@@ -194,7 +195,6 @@ const productController = {
                     .json({ status: 500, message: error.hasOwnProperty('sqlMessage') ? error['sqlMessage'] : "erreur inconnue du serveur !" })
             })
     }
-
 }
 
 
