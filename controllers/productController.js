@@ -9,19 +9,6 @@ import database from '../config/database';
 dotenv.config();
 
 const productController = {
-//     // runrow
-//     listerProduits: async () => {
-        
-//     //    await database.query("ALTER TABLE `products` ADD `imgcover` VARCHAR(60) NOT NULL AFTER `nom`")
-//        await database.query("UPDATE `products` SET `imgcover` = 'toyota.jpg' WHERE id = 4")
-//         .then(d => {
-//             console.log(d);
-// // CD Player	Sun Roof	Leather Seat	Alloy Wheels Power Steering	Power Window	A/C	ABS Airbag	Radio	CD Changer	DVD TV	Power Seat	Back Tire	Grill GuardRear Spoiler	Central Locking	Jack	Spare Tire Wheel Spanner	Fog Lights	Back Camera	Push Start Keyless Entry	ESC	360 Degree Camera	Body Kit   Side Airbag	Power Mirror	Side Skirts	Front Lip Spoiler Navigation Turbo
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
-//     },
     listerProduits : async (req, res) => {
          let results = await produits.findAll({
             where: {
