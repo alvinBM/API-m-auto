@@ -20,14 +20,14 @@ const panierController = {
       .then((data) => {
         res.status(200).json({
           status: "200",
-          panier: data
+          data
         });
       })
       .catch((error) => {
         console.log(error)
         res.status(404).json({
           status: "404",
-          description: "Une erreur est survenu" + error
+          message: "Une erreur est survenu" + error
         });
       });
   },
@@ -52,7 +52,8 @@ const panierController = {
       console.log(err)
         res.status(404).json({
           status: "404",
-          description: "Une erreur est survenu" + err
+          message: "Une erreur est survenu" + err,
+          data: err
         });
     });
   },

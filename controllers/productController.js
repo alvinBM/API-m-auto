@@ -43,7 +43,7 @@ const productController = {
         } else {
             res.status(401).json({
                 status: "401",
-                "message": "Vous devez renseigner le mot clé de la recherche",
+                message: "Vous devez renseigner le mot clé de la recherche",
                 data: null
             })
         }
@@ -60,7 +60,15 @@ const productController = {
         })
         .then(prd => {
             if(prd instanceof produits){
-                
+                prd.status = 0;
+                prd.save().then(resolve => {
+                    res.status(200)
+                    .json({status: 200, message: "Produit modifier avec succes", data: prd})
+                })
+                .catch(err => {
+                    res.status(404).json({status: 404, message: "ce produit n'existe pas dans la base pour la suppression !", data: null})
+                })
+
             }else{
                 res.status(404).json({status: 404, message: "ce produit n'existe pas dans la base pour la suppression !", data: null})
             }
