@@ -131,7 +131,7 @@ const productController = {
     },
 
     ajouterProduit: async (req, res) => {
-        let results = await produits.create({
+        await produits.create({
             nom: req.body.nom,
             prix: req.body.prix,
             quanitite: req.body.quanitite,
@@ -140,7 +140,8 @@ const productController = {
         }).then((data) => {
             res.status(200).json({
                 status: "200",
-                "produits": data
+                data,
+                message: "OK"
             })
         }).catch(er => console.error(er));
 
