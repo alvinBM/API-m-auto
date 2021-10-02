@@ -24,9 +24,9 @@ const productController = {
 //     },
     listerProduits : async (req, res) => {
          let results = await produits.findAll({
-            // where: {
-            //     status: 1
-            // }
+            where: {
+                status: 1
+            }
         }).then((data) => {
             res.status(200).json({
                 status: "200",
@@ -43,7 +43,7 @@ const productController = {
         if(query){
             produits.findAll({
                 where: {
-                    // status: 1,
+                    status: 1,
                     nom : {[Op.like]: `%${query}%`}
                 }
             }).then((data) => {
