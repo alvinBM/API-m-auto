@@ -6,5 +6,7 @@ const router = express.Router();
 router
     .get('/', clients.onListing)
     .put('/:clientId', clients.onEditing)
+    .post('/register', clients.register)
+    .post('/login', clients.login)
     
 export default router;

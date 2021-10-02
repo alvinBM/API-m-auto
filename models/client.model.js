@@ -35,13 +35,18 @@ const Client = db.define('clients',{
         type: Sequelize.STRING,
         allowNull: false
     },
+    password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        default: "WKRHJGDJAHFhkjhead676a75f65a6d5f78z5f78ajaf7s6786FUGJBF"
+    },
     telephone:{
         type: Sequelize.STRING,
         allowNull: false
     },
     adresse:{
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     timestamps: false,
