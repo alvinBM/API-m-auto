@@ -52,7 +52,7 @@ const productController = {
     supprimerProduits : async (req, res) => {
         const {productId} = req.params;
 
-        const product = await produits.findOne({
+        await produits.findOne({
             where: {
                 id: productId,
                 status: 1
