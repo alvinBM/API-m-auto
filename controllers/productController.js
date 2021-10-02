@@ -60,7 +60,7 @@ const productController = {
         })
         .then(prd => {
             if(prd instanceof produits){
-
+                
             }else{
                 res.status(404).json({status: 404, message: "ce produit n'existe pas dans la base pour la suppression !", data: null})
             }
