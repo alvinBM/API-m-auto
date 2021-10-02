@@ -80,18 +80,25 @@ const productController = {
 
     detailsProduit: async (req, res) => {
 
-        let results = await produits.findAll(
+        await produits.findAll(
             {
                 where: {
-                    id: req.params.id
+                    id: parseInt(req.params.id),
+                    status: 1
                 }
             }
         )
             .then(data => {
-                res.status(200).json({ "produits": data });
+                if(data instanceof produits){
+                    res.status(200).json({ data, message: "Ok", status: 200 });
+                }else{
+                    res.status(404).json({ data: null, message: "produit n'existe pas", status: 404 });
+                }
             })
             .catch(err => {
                 res.status(500).send({
+                    status: 500,
+                    data: null,
                     message: "Aucun produit correspondant"
                 });
             });
@@ -99,18 +106,25 @@ const productController = {
     },
 
     produitParCategorie: async (req, res) => {
-        let results = await produits.findAll(
+        await produits.findAll(
             {
                 where: {
-                    category_id: req.params.category_id
+                    category_id: req.params.category_id,
+                    status: 1
                 }
             })
             .then(data => {
-                res.status(200).json({ status: 200, message: "Ok", data });
+                if(data instanceof produits){
+                    res.status(200).json({ status: 200, message: "Ok", data });
+                }else{
+                    res.status(200).json({ status: 200, message: "Aucun produit trouve", data: null });
+                }
             })
             .catch(err => {
                 res.status(500).send({
-                    message: "Aucune category correspondante"
+                    status: 500,
+                    message: "Aucune category correspondante",
+                    data: err
                 });
             });
 
