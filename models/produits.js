@@ -37,6 +37,11 @@ const produits = db.define('products', {
     category_id: {
         type: Sequelize.INTEGER,
         allowNull: true
+    },
+    imgcover: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        default: "alterImg.png"
     }
 }, {
     timestamps: false,
