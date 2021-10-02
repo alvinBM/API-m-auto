@@ -1,6 +1,7 @@
 import formatDate from 'date-format';
 import produits from '../models/produits';
 import dotenv from 'dotenv';
+import Categories from '../models/categories'
 import base64ToImage from 'base64-to-image';
 import path from "path";
 import { Op } from 'sequelize';
@@ -10,7 +11,7 @@ dotenv.config();
 
 const productController = {
     listerProduits : async (req, res) => {
-         let results = await produits.findAll({
+        await produits.findAll({
             where: {
                 status: 1
             }
@@ -28,7 +29,7 @@ const productController = {
         let query = req.body.query;
 
         if(query){
-            produits.findAll({
+            await produits.findAll({
                 where: {
                     status: 1,
                     nom : {[Op.like]: `%${query}%`}
@@ -143,35 +144,19 @@ const productController = {
                 data,
                 message: "OK"
             })
-        }).catch(er => console.error(er));
-
-        if(product){
-            product.update({deleted: new Date(), status: 0})
-            res.status(200).json({
-                status : "200",
-                "desciption" : "Produit supprime avec succes"
-            }) 
-
-        } else {
-            res.status(404).json({
-                status : "404",
-                "desciption" : "Vous devez renseigner le mot clé de la suppression"
-            }) 
-        }
-
-        const product = await produits.findOne({
-            where: { id: productId }
+        }).catch(er => {
+            res.status(500)
+            .json({message: "une erreur vient de se produire", status: 500, data: null})
         });
-
 
     },
 
     modifierProduits: async(req, res) => {
 
-        Produits.hasMany(Categories, { foreignKey: "id" });
-        Categories.belongsTo(Produits, { foreignKey: "produits_id" });
+        produits.hasMany(Categories, { foreignKey: "id" });
+        Categories.belongsTo(produits, { foreignKey: "produits_id" });
 
-        await Produits.findOne({
+        await produits.findOne({
                 where: {
                     id: req.params.ProduitsId,
                     categories_id: req.body.categories_id,
