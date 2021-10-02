@@ -25,7 +25,6 @@ app.get('/', (req, res, next) => {
         message : 'Welcome to M AUTO API'});
 });
 
-
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
