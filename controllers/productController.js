@@ -171,9 +171,17 @@ const productController = {
                 if (mproduits && mproduits instanceof Produits) {
                     mproduits = req.body
                     mproduits.save()
-                    res
+                    .then(resolve => {
+                        res
                         .status(200)
                         .json({ status: 200, message: "Produit modifié avec succès !" })
+                    })
+                    .catch(error => {
+                        res
+                        .status(500)
+                        .json({ status: 500, message: error.hasOwnProperty('sqlMessage') ? error['sqlMessage'] : "erreur inconnue du serveur !" })
+                    })
+
                 } else {
                     res
                         .status(404)
