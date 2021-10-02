@@ -51,6 +51,7 @@ const productController = {
         }
     },
 
+
     supprimerProduits : async (req, res) => {
         const {productId} = req.params;
 
