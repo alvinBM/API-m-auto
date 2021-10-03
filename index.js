@@ -7,7 +7,7 @@ import cors from 'cors';
 import UploadedFile from 'express-fileupload';
 import docs from './swagger.json';
 import path from "path";
-
+import validateKey from './middlewares/validateKey';
 
 dotenv.config();
 
@@ -17,13 +17,13 @@ app.use(cors())
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(UploadedFile());
-app.use("/api", routers);
 
 app.get('/', (req, res, next) => {
     res.status(200).send({
         status : 200,
         message : 'Welcome to M AUTO API'});
 });
+app.use("/api", validateKey, routers);
 
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //intialize endpoint of api documatation  of vesrion 1
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 // read file 
-app.get('/api/ressources/:ressource', (req, res, next) => {
+app.get('/api/ressources/:ressource', validateKey, (req, res, next) => {
   const rss = (req.params['ressource']);
   res
       .status(200)
