@@ -4,7 +4,6 @@ dotenv.config();
 
 const validateKey = async (req, res, next) => {
 
-    console.log(req.headers);
     const key = req.headers.key;
     const app = req.headers.app;
 
