@@ -18,6 +18,24 @@ const CategoriesController = {
 
     },
 
+    detailsCategories: async(req, res) => {
+        let results = await Categories.findAll(
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+            .then(data => {
+                res.status(200).json({ "categories": data });
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: "cette categorie n est pas repertoriee"
+                });
+            });
+    },
+
     modifierCategories: async(req, res) => {
 
         Categories.hasMany(produits, { foreignKey: "id" });
