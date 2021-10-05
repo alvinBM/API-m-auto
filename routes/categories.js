@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/', CategoriesController.listerCategories)
     .put("/category", CategoriesController.modifierCategories)
-    .get("git id", CategoriesController.detailsCategories)
+    .get("category/:id", CategoriesController.detailsCategories)
 
 export default router;
